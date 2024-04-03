@@ -4,9 +4,10 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 VPATH = lib:src:includes:lib\libft
 
-MINISHELL_SRCS = minishell.c
+MINISHELL_SRCS = minishell.c ast.c parse.c ft_printstr.c ft_checksyntax.c \
+					ft_tokenize.c ft_checkoperator.c
 MINISHELL_OBJS = $(MINISHELL_SRCS:.c=.o)
-VPATH = src:lib:lib/libft
+VPATH = src:lib:lib/libft:src/parse
 
 LIBFT = libft.a
 LIBFT_DIR = ./lib/libft

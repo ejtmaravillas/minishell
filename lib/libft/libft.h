@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 14:38:45 by emaravil          #+#    #+#             */
-/*   Updated: 2024/03/19 16:40:19 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/03/31 21:40:16 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		ft_isalpha(int arg);
 int		ft_isdigit(int arg);
 int		ft_isalnum(int arg);
 int		ft_isascii(int arg);
+int		ft_isspace(int c);
 int		ft_isprint(int arg);
 size_t	ft_strlen(const char *arg);
 void	*ft_memset(void *dst, int c, size_t len);
@@ -47,6 +48,8 @@ void	*ft_memchr(const void *src, int c, size_t len);
 int		ft_memcmp(const void *s1, const void *s2, size_t len);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int		ft_atoi(const char *str);
+
+void	*ft_realloc(void *ptr, size_t len);
 
 void	*ft_calloc(size_t number, size_t size);
 char	*ft_strdup(const char *str);
