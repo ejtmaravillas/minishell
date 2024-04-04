@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:01 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/03 01:15:04 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/04 20:28:47 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	main(void)
 		if (ft_checksyntax(str))
 		{
 			str = ft_checkoperator(str);
-			str_split = ft_split(str, ' ');
+			str_split = ft_splittoken(str);
+			free(str);
 			ft_printstr(str_split);
 			ft_freesplit(str_split);
 		}
