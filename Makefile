@@ -8,7 +8,7 @@ MINISHELL_SRCS = minishell.c ast.c parse.c ft_printstr.c ft_checksyntax.c \
 					ft_tokenize.c ft_checkoperator.c ft_checknextchar.c \
 					ft_splittoken.c
 MINISHELL_OBJS = $(MINISHELL_SRCS:.c=.o)
-VPATH = src:lib:lib/libft:src/parse
+VPATH = src:includes:lib:lib/libft:src/parse:src/token
 
 LIBFT = libft.a
 LIBFT_DIR = ./lib/libft

@@ -73,6 +73,10 @@ The Shell Grammar Rules
 %token  NEWLINE
 %token  IO_NUMBER
 
+/* The following are the control operators */
+
+newline, |, ||, &, &&, ;, ;;, ;&, ;;&, |&, (,)
+
 /*  The following are the operators mentioned above.   */
 
 %token      AND_IF      OR_IF       DSEMI

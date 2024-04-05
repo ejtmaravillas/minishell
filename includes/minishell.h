@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:37 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/04 21:59:08 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/05 02:39:08 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,12 @@ int			ft_checkdquotes(char *str);
 int			ft_checkparenthesis(char *str);
 int			ft_checkcbrackets(char *str);
 char		**ft_splittoken(char *str);
-char		*ft_assignstring(char *in, char *str, int start, int end);
+char		*ft_assignstring(char *str, int start, int end);
 char		**ft_realloc_dp(char **s, char *input, int len);
 int			ft_strlen_dp(char **s);
 void		free_pointer(char *s);
+char		**ft_handlestring(char **in, char *str, int index, int token_count);
+char		**ft_handlequotes(char **in, char *str, int index, int token_count);
+int			get_indexquotes(char *str, int index);
+int			get_indexstring(char *str, int index);
 #endif

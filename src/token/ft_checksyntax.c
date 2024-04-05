@@ -6,11 +6,11 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:52:38 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/03 01:10:27 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/05 03:59:00 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	ft_checksyntax(char *str)
 {

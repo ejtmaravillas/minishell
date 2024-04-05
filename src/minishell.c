@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:01 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/04 20:28:47 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/05 03:41:20 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,15 @@ int	main(void)
 	{
 		str = readline("minishell$ ");
 		add_history(str);
-		if (ft_checksyntax(str))
+		// if (ft_checksyntax(str))
+		if (1)
 		{
 			str = ft_checkoperator(str);
 			str_split = ft_splittoken(str);
 			free(str);
-			ft_printstr(str_split);
-			ft_freesplit(str_split);
+			if (str_split != NULL)
+				ft_printstr(str_split);
+			// ft_freesplit(str_split);
 		}
 	}
 	return (0);

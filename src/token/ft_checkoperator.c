@@ -6,11 +6,11 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:12:36 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/03 13:32:52 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/05 03:59:03 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 // char	**str_realloc(char **str)
 // {

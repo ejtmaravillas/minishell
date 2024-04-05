@@ -6,11 +6,11 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:14:38 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/04 21:43:12 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/05 03:58:49 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 char	*ft_checkoperator(char *c)
 {
@@ -36,9 +36,7 @@ char	*ft_checkoperator(char *c)
 	out = (char *)malloc(sizeof(char) * (len + 1));
 	if (!out)
 		return (NULL);
-	printf("len: %lu\n", len);
 	out = ft_tokenize(out, c, len);
-	printf("out: %s\n", out);
 	return (out);
 }
 
@@ -67,7 +65,6 @@ char	*ft_tokenize(char *out, char *c, int len)
 			out[index] = c[index - offset];
 		index++;
 	}
-	printf("index: %d\n", index);
 	out[index] = '\0';
 	free(c);
 	return (out);

@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:08:40 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/02 00:58:17 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/05 03:17:32 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_printstr(char **str_split)
 	index = 1;
 	while (index <= word_count)
 	{
-		ft_printf("o------------");
+		ft_printf("o--------------------");
 		index++;
 	}
 	ft_printf("o\n");
@@ -30,14 +30,14 @@ void	ft_printstr(char **str_split)
 	index = 1;
 	while (index <= word_count)
 	{
-		ft_printf("   PARAM %d  |", index);
+		ft_printf("       PARAM %d      |", index);
 		index++;
 	}
 	ft_printf("\n");
 	index = 1;
 	while (index <= word_count)
 	{
-		ft_printf("o------------");
+		ft_printf("o--------------------");
 		index++;
 	}
 	ft_printf("o\n");
@@ -45,7 +45,7 @@ void	ft_printstr(char **str_split)
 	index = 0;
 	while (*str_split)
 	{
-		ft_printf("%11s |", *str_split);
+		ft_printf("%19s |", *str_split);
 		index++;
 		str_split++;
 	}
@@ -61,7 +61,7 @@ void	ft_printstr(char **str_split)
 	index = 1;
 	while (index <= word_count)
 	{
-		ft_printf("o------------", index);
+		ft_printf("o--------------------", index);
 		index++;
 	}
 	ft_printf("o\n");
