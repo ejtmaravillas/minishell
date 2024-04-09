@@ -3,6 +3,9 @@
         "libft.h": "c",
         "readline.h": "c",
         "chrono": "c",
-        "minishell.h": "c"
+        "minishell.h": "c",
+        "__locale": "c",
+        "ios": "c",
+        "sstream": "c"
     }
 }

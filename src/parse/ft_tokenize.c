@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:14:38 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/05 03:58:49 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/08 01:05:51 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,37 +37,71 @@ char	*ft_checkoperator(char *c)
 	if (!out)
 		return (NULL);
 	out = ft_tokenize(out, c, len);
+	free(c);
 	return (out);
 }
+/// @brief tokenize the input (detect metacharacters)
+/// @param out - output string with metacharacters separated with spaces
+/// @param i - index of out
+/// @param o - offset of out from c
+/// @param c - input string from readline
+/// @param len length of output with spaces included (from metacharacters)
+/// @return 
 
 char	*ft_tokenize(char *out, char *c, int len)
 {
-	int	index;
-	int	offset;
+	int	i;
+	int	o;
 
-	index = 0;
-	offset = 0;
-	while (index < len)
+	i = -1;
+	o = 0;
+	while (++i < len)
 	{
-		if ((c[index - offset] == '<') || (c[index - offset] == '>'))
+		if ((c[i - o] == '<') || (c[i - o] == '>') || \
+			((ft_isdigit(c[i - o]) > 0) && (ft_checkpid(c, i, o))))
 		{
-			index = ft_handleredir(out, c, index, offset);
-			offset += 2;
+			i = ft_handleredir(out, c, i, o);
+			o += 2;
 		}
-		else if ((c[index - offset] == '|') || (c[index - offset] == '(') || \
-			(c[index - offset] == ')') || (c[index - offset] == '&') || \
-			(c[index - offset] == ';'))
+		else if ((c[i - o] == '|') || (c[i - o] == '(') || (c[i - o] == ')') \
+			|| (c[i - o] == '&') || (c[i - o] == ';'))
 		{
-			index = ft_handleoper(out, c, index, offset);
-			offset += 2;
+			i = ft_handleoper(out, c, i, o);
+			o += 2;
 		}
 		else
-			out[index] = c[index - offset];
-		index++;
+			out[i] = c[i - o];
 	}
-	out[index] = '\0';
-	free(c);
+	out[i] = '\0';
 	return (out);
+}
+
+bool	ft_checkpid(char *c, int index, int offset)
+{
+	if ((index - offset) > 0)
+	{
+		if (ft_isspace(c[index - offset - 1]) > 0)
+		{
+			while (ft_isdigit(c[index - offset]) != 0)
+			{
+				if ((c[index + 1 - offset] == '>') || \
+					(c[index + 1 - offset] == '<'))
+					return (true);
+				index++;
+			}
+		}
+	}
+	else
+	{
+		while (ft_isdigit(c[index - offset]) != 0)
+		{
+			if ((c[index + 1 - offset] == '>') || \
+				(c[index + 1 - offset] == '<'))
+				return (true);
+			index++;
+		}
+	}
+	return (false);
 }
 
 int	ft_handleoper(char *out, char *c, int index, int offset)
@@ -88,7 +122,8 @@ int	ft_handleredir(char *out, char *c, int index, int offset)
 
 	out[index] = ' ';
 	offset++;
-	index++;
+	while (ft_isdigit(c[++index - offset]) != 0)
+		out[index] = c[index - offset];
 	out[index] = c[index - offset];
 	redir_type = ft_checknextchar(c, index - offset);
 	if (redir_type == 1)

@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:37 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/05 02:39:08 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/09 03:58:54 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,37 @@ typedef enum nodetype
 	errmsg,
 }	t_nodetype;
 
+typedef enum tokentype
+{
+	WORD,
+	PIPE,
+	SEMICOLON,
+	REDIR,
+	END
+}	t_tokentype;
+
+typedef struct tokens
+{
+	t_tokentype		type;
+	char			*value;
+	struct tokens	*next;
+}	t_tokens;
+
+typedef struct astnodes
+{
+	char			*value;
+	struct astnodes	*left;
+	struct astnodes	*right;
+}	t_astnodes;
+
+typedef struct splitvalutes
+{
+	char	**out;
+	int		index;
+	int		offset;
+	int		token_count;
+}	t_splitvalues;
+
 typedef struct ast_node
 {
 	t_nodetype			ntype;
@@ -62,14 +93,19 @@ void		ft_printstr(char **str_split);
 int			strsplit_count(char **str_split);
 void		ft_freesplit(char **str);
 
-t_astnode	*create_node(t_nodetype ntype, const char *value);
+void		parse_input(char *str);
+
+t_astnodes	*ft_parsetokens(t_tokens **tokens);
+t_astnodes	*parse_command(t_tokens **tokens);
+char		*merge_string(char *s1, char *s2);
+void		print_ast(t_astnodes *rootnode, int depth);
+
 void		free_ast(t_astnode *root);
-void		addnode_child(t_astnode *parent, t_astnode *child);
 void		skip_whitespace(const char **cmnd);
-t_astnode	*p_arg(const char **cmnd, char **errmsg);
 int			strsplit_size(char **str);
 char		*ft_checkoperator(char *c);
 char		*ft_tokenize(char *out, char *c, int len);
+bool		ft_checkpid(char *c, int index, int offset);
 int			ft_checknextchar(char *c, int index);
 int			ft_checknextcharb(char *c, int index);
 int			ft_checknextcharc(char *c, int index);
@@ -84,9 +120,20 @@ char		**ft_splittoken(char *str);
 char		*ft_assignstring(char *str, int start, int end);
 char		**ft_realloc_dp(char **s, char *input, int len);
 int			ft_strlen_dp(char **s);
-void		free_pointer(char *s);
-char		**ft_handlestring(char **in, char *str, int index, int token_count);
-char		**ft_handlequotes(char **in, char *str, int index, int token_count);
+void		free_pointer(char **s);
+char		**ft_handlestring(char **in, char *str, \
+			int *index, int token_count);
+char		**ft_handlequotes(char **in, char *str, \
+			int *index, int token_count);
 int			get_indexquotes(char *str, int index);
 int			get_indexstring(char *str, int index);
+
+void		printout(char **out);
+char		**str_token(char **str);
+char		**ft_handletokens(char **outdp, char *str);
+
+t_tokens	*ft_sethead_token(t_tokens *head, t_tokens *tail, t_tokens *token);
+t_tokens	*tokenize_input(char **str_token);
+void		print_tokens(t_tokens *head);
+char		*enum_word(t_tokentype tokentype);
 #endif

@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/05 03:58:57 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/09 00:09:53 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,100 +14,67 @@
 
 char	**ft_splittoken(char *str)
 {
-	char	**out;
-	int		token_count;
-	int		index;
-	int		start;
+	t_splitvalues	spval;
+	char			**out;
 
-	index = 0;
-	start = 0;
+	spval.index = 0;
 	out = (char **)malloc(sizeof(char *) * 1);
 	out[0] = NULL;
-	token_count = 0;
-	while (str[index] != '\0')
+	spval.token_count = 0;
+	while (str[spval.index] != '\0')
 	{
-		while (str[index] && (ft_isspace(str[index]) > 0))
-			index++;
-		if (str[index] && (ft_isspace(str[index]) == 0) && str[index] != '\'' \
-			&& str[index] != '\"')
-		{
-			token_count++;
-			out = ft_handlestring(out, str, index, token_count);
-			index = get_indexstring(str, index);
-		}
-		if (str[index] == '\'' || str[index] == '\"')
-		{
-			out = ft_handlequotes(out, str, index, token_count + 2);
-			if (out == NULL)
-				return (NULL);
-			index = get_indexquotes(str, index);
-		}
+		while (str[spval.index] && (ft_isspace(str[spval.index]) > 0))
+			spval.index++;
+		if (str[spval.index] && !(ft_isspace(str[spval.index])) && \
+			str[spval.index] != '\'' \
+			&& str[spval.index] != '\"')
+			out = ft_handlestring(out, str, &spval.index, \
+			(++spval.token_count));
+		if (str[spval.index] == '\'' || str[spval.index] == '\"')
+			out = ft_handlequotes(out, str, &spval.index, \
+			(spval.token_count + 2));
 	}
 	return (out);
 }
 
-int	get_indexstring(char *str, int index)
-{
-	while (str[index] != '\0' && !(ft_isspace(str[index])) \
-		&& str[index] != '\'' && str[index] != '\"')
-		index++;
-	if (str[index] == '\'' || str[index] == '\"')
-		index = get_indexquotes(str, index);
-	return (index);
-}
-
-int	get_indexquotes(char *str, int index)
-{
-	char	c;
-
-	c = str[index];
-	index++;
-	while (str[index] != c)
-		index++;
-	index++;
-	return (index);
-}
-
-char	**ft_handlestring(char **in, char *str, int index, int token_count)
+char	**ft_handlestring(char **in, char *str, int *index, int token_count)
 {
 	char	**out;
 	char	*str_temp;
 	int		start;
 
-	start = index;
+	start = *index;
 	out = in;
-	while (str[index] != '\0' && !(ft_isspace(str[index])) \
-		&& str[index] != '\'' && str[index] != '\"')
-		index++;
-	if (str[index] == '\'' || str[index] == '\"')
-		index = get_indexquotes(str, index);
-	str_temp = ft_assignstring(str, start, index);
+	while (str[*index] != '\0' && !(ft_isspace(str[*index])) \
+		&& str[*index] != '\'' && str[*index] != '\"')
+		*index += 1;
+	str_temp = ft_assignstring(str, start, *index);
 	out = ft_realloc_dp(out, str_temp, token_count + 1);
 	return (out);
 }
 
-char	**ft_handlequotes(char **in, char *str, int index, int token_count)
+char	**ft_handlequotes(char **in, char *str, int *index, int token_count)
 {
 	char	**out;
 	char	*str_temp;
 	char	c;
 	int		start;
 
-	c = str[index];
-	start = index;
-	index++;
+	c = str[*index];
+	start = *index;
+	*index += 1;
 	out = in;
-	while (str[index] != '\0' && str[index] != c)
-		index++;
-	if (str[index] == c)
-		index++;
+	while (str[*index] != '\0' && str[*index] != c)
+		*index += 1;
+	if (str[*index] == c)
+		*index += 1;
 	else
 	{
 		ft_printf("bash: syntex error, uneven number of %c quotes\n", c);
 		ft_freesplit(out);
 		return (NULL);
 	}
-	str_temp = ft_assignstring(str, start, index);
+	str_temp = ft_assignstring(str, start, *index);
 	out = ft_realloc_dp(out, str_temp, token_count + 1);
 	return (out);
 }
@@ -163,16 +130,16 @@ int	ft_strlen_dp(char **s)
 	return (count);
 }
 
-void	free_pointer(char *s)
+void	free_pointer(char **s)
 {
 	int	count;
 	int	len;
 
-	len = ft_strlen(s);
+	len = ft_strlen_dp(s);
 	count = 0;
 	while (count < len)
 	{
-		// free(s[count]);
+		free(s[count]);
 		count++;
 	}
 }

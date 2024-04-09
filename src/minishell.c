@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:01 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/05 03:41:20 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/09 03:56:29 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,36 @@
 
 int	main(void)
 {
-	char	*str;
-	char	**str_split;
+	char		*str;
 
 	while (1)
 	{
 		str = readline("minishell$ ");
-		add_history(str);
-		// if (ft_checksyntax(str))
-		if (1)
+		if (ft_strlen(str) > 0)
 		{
-			str = ft_checkoperator(str);
-			str_split = ft_splittoken(str);
-			free(str);
-			if (str_split != NULL)
-				ft_printstr(str_split);
-			// ft_freesplit(str_split);
+			add_history(str);
+			parse_input(str);
 		}
 	}
 	return (0);
+}
+
+void	parse_input(char *str)
+{
+	char		**str_split;
+	t_tokens	*token_input;
+	t_astnodes	*root;
+
+	str_split = ft_splittoken(str);
+	str_split = str_token(str_split);
+	token_input = tokenize_input(str_split);
+	print_tokens(token_input);
+	root = ft_parsetokens(&token_input);
+	ft_printf("\n----------------- PRINT AST ---------------\n");
+	print_ast(root, 0);
+	ft_printf("--------------------------------------------\n");
+	free(str);
+	free_pointer(str_split);
 }
 
 void	ft_freesplit(char **str)
