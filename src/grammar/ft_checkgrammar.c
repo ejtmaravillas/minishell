@@ -6,11 +6,11 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:34:08 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/11 03:27:24 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:35:51 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/parse.h"
 
 bool	ft_shellgrammar(t_tokens *tokens)
 {
@@ -71,12 +71,13 @@ bool	ft_ioredir(t_tokens *token_start, t_tokens *token_end)
 		{
 			if (tokens->next == NULL)
 			{
-				ft_printf("bash: syntex near unexpected token 'newline'\n");
+				ft_printf("bash: syntex error near unexpected ");
+				ft_printf("token 'newline'\n");
 				return (false);
 			}
 			else if (tokens->next->type != WORD)
 			{
-				ft_printf("bash: syntex near unexpected token '%s'\n", \
+				ft_printf("bash: syntex error near unexpected token '%s'\n", \
 					tokens->next->value);
 				return (false);
 			}
@@ -96,29 +97,4 @@ bool	ft_checkstart(t_tokens *tokens)
 	}
 	else
 		return (true);
-}
-
-bool	ft_checkparam(t_tokens *tokens)
-{
-	int	index;
-
-	while ((tokens) != NULL)
-	{
-		index = 0;
-		while ((tokens)->value[index] != '\0')
-		{
-			if ((tokens)->value[index] == '$')
-			{
-				if ((tokens)->value[index + 1] != '\0' && \
-					(ft_isalpha((tokens)->value[index + 1]) == 0))
-				{
-					ft_printf("bash: syntex error, wrong parameter name\n");
-					return (false);
-				}
-			}
-			index++;
-		}
-		tokens = tokens->next;
-	}
-	return (true);
 }

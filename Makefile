@@ -5,9 +5,10 @@ CFLAGS = -Wall -Wextra -Werror
 
 MINISHELL_SRCS = minishell.c ft_printstr.c ft_checksyntax.c \
 					ft_tokenize.c ft_strtoken.c ft_checknextchar.c \
-					ft_splittoken.c ft_toktoast.c ft_checkgrammar.c
+					ft_splittoken.c ft_toktoast.c ft_checkgrammar.c \
+					ft_open_sh.c ft_parse_utils.c ft_parse.c
 MINISHELL_OBJS = $(MINISHELL_SRCS:.c=.o)
-VPATH = src:includes:lib:lib/libft:src/parse:src/token:src/grammar
+VPATH = src:includes:lib:lib/libft:src/parse:src/token:src/grammar:src/open_sh
 
 LIBFT = libft.a
 LIBFT_DIR = ./lib/libft

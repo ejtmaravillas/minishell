@@ -6,11 +6,11 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:08:40 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/08 22:58:47 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:14:28 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "./includes/parse.h"
 
 void	ft_printstr(char **str_split)
 {
