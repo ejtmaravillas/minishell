@@ -6,15 +6,23 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:52:38 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/08 19:22:21 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/11 02:00:13 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_checksyntax(char *str)
+bool	ft_checksyntax(t_tokens *tokens)
 {
-	return (ft_checksquotes(str));
+	if (!tokens)
+		return (false);
+	if (!ft_checkstart(tokens))
+		return (false);
+	if (!ft_checkparam(tokens))
+		return (false);
+	if (!ft_checkparenthesis(tokens))
+		return (false);
+	return (true);
 }
 
 int	ft_checksquotes(char *str)
@@ -58,31 +66,29 @@ int	ft_checkdquotes(char *str)
 		return (0);
 	}
 	else
-		return (ft_checkparenthesis(str));
+		return (1);
 }
 
-int	ft_checkparenthesis(char *str)
+bool	ft_checkparenthesis(t_tokens *tokens)
 {
-	int	index;
 	int	count;
 
-	index = 0;
 	count = 0;
-	while (str[index])
+	while (tokens != NULL)
 	{
-		if (str[index] == '(')
+		if (tokens->value[0] == '(')
 			count++;
-		if (str[index] == ')')
+		if (tokens->value[0] == ')')
 			count--;
-		index++;
+		tokens = tokens->next;
 	}
 	if (count != 0)
 	{
 		ft_printf("bash: syntex error, uneven number of parenthesis\n");
-		return (0);
+		return (false);
 	}
 	else
-		return (ft_checkcbrackets(str));
+		return (true);
 }
 
 int	ft_checkcbrackets(char *str)

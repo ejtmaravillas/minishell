@@ -6,6 +6,7 @@
         "minishell.h": "c",
         "__locale": "c",
         "ios": "c",
-        "sstream": "c"
+        "sstream": "c",
+        "pipeline_grammar": "c"
     }
 }

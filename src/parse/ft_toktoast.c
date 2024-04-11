@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 00:55:46 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/09 04:08:38 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:12:18 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ t_astnodes	*ft_parsetokens(t_tokens **tokens)
 	char		*operator;
 
 	command = parse_command(tokens);
-	if ((*tokens != NULL) && ((*tokens)->type == PIPE || \
-		(*tokens)->type == REDIR))
+	if ((*tokens != NULL) && ((*tokens)->type == PIPE))
 	{
 		operator = ft_strdup((*tokens)->value);
 		(*tokens) = (*tokens)->next;
@@ -43,10 +42,10 @@ t_astnodes	*parse_command(t_tokens **tokens)
 	if ((*tokens) == NULL)
 		return (NULL);
 	node = (t_astnodes *)malloc(sizeof(t_astnodes));
-	if ((*tokens)->type == WORD)
+	if ((*tokens != NULL) && (*tokens)->type != PIPE)
 	{
 		node->value = ft_strdup("");
-		while ((*tokens != NULL) && (*tokens)->type == WORD)
+		while ((*tokens != NULL) && (*tokens)->type != PIPE)
 		{
 			if (ft_strlen(node->value) > 0)
 				node->value = merge_string(node->value, (*tokens)->value);

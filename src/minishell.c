@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:01 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/09 03:56:29 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/11 02:31:58 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,18 @@ void	parse_input(char *str)
 	t_astnodes	*root;
 
 	str_split = ft_splittoken(str);
+	if (!str_split)
+		return ;
 	str_split = str_token(str_split);
 	token_input = tokenize_input(str_split);
-	print_tokens(token_input);
-	root = ft_parsetokens(&token_input);
-	ft_printf("\n----------------- PRINT AST ---------------\n");
-	print_ast(root, 0);
-	ft_printf("--------------------------------------------\n");
+	if (ft_shellgrammar(token_input) && ft_checksyntax(token_input))
+	{
+		print_tokens(token_input);
+		root = ft_parsetokens(&token_input);
+		ft_printf("\n----------------- PRINT AST ---------------\n");
+		print_ast(root, 0);
+		ft_printf("--------------------------------------------\n");
+	}
 	free(str);
 	free_pointer(str_split);
 }

@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/09 00:09:53 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/09 21:19:26 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,12 @@ char	**ft_splittoken(char *str)
 			out = ft_handlestring(out, str, &spval.index, \
 			(++spval.token_count));
 		if (str[spval.index] == '\'' || str[spval.index] == '\"')
+		{
 			out = ft_handlequotes(out, str, &spval.index, \
 			(spval.token_count + 2));
+			if (!out)
+				return (NULL);
+		}
 	}
 	return (out);
 }

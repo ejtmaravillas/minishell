@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:37 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/09 03:58:54 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/11 03:17:06 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,15 @@ t_astnodes	*parse_command(t_tokens **tokens);
 char		*merge_string(char *s1, char *s2);
 void		print_ast(t_astnodes *rootnode, int depth);
 
+bool		ft_shellgrammar(t_tokens *tokens);
+bool		ft_checkstart(t_tokens *tokens);
+bool		ft_checkparam(t_tokens *tokens);
+bool		ft_checksyntax(t_tokens *tokens);
+bool		ft_checkparenthesis(t_tokens *tokens);
+bool		ft_completecommand(t_tokens *tokens);
+bool		ft_checkpipe(t_tokens *tokens);
+bool		ft_ioredir(t_tokens *token_start, t_tokens *token_end);
+
 void		free_ast(t_astnode *root);
 void		skip_whitespace(const char **cmnd);
 int			strsplit_size(char **str);
@@ -111,10 +120,8 @@ int			ft_checknextcharb(char *c, int index);
 int			ft_checknextcharc(char *c, int index);
 int			ft_handleredir(char *out, char *c, int index, int offset);
 int			ft_handleoper(char *out, char *c, int index, int offset);
-int			ft_checksyntax(char *str);
 int			ft_checksquotes(char *str);
 int			ft_checkdquotes(char *str);
-int			ft_checkparenthesis(char *str);
 int			ft_checkcbrackets(char *str);
 char		**ft_splittoken(char *str);
 char		*ft_assignstring(char *str, int start, int end);

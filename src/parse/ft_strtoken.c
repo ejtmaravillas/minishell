@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:12:36 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/09 04:03:26 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/11 02:37:35 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ t_tokens	*tokenize_input(char **str_token)
 		token = (t_tokens *)malloc(sizeof(t_tokens));
 		if (!token)
 			handle_errors("Memory allocation of tokens failed\n");
+		token->type = WORD;
+		token->next = NULL;
 		if (ft_strncmp(*str_token, "|", 1) == 0)
 			token->type = PIPE;
 		else if ((ft_strchr(*str_token, '>') > 0) || \
 			(ft_strchr(*str_token, '<') > 0))
 			token->type = REDIR;
-		else
-			token->type = WORD;
 		token->value = malloc(sizeof(char) * (ft_strlen(*str_token)) + 1);
 		ft_strlcpy(token->value, *str_token, ft_strlen(*str_token) + 1);
 		head = ft_sethead_token(head, tail, token);
@@ -86,7 +86,6 @@ t_tokens	*ft_sethead_token(t_tokens *head, t_tokens *tail, t_tokens *token)
 {
 	t_tokens	*s;
 
-	token->next = NULL;
 	s = head;
 	if (!head)
 	{
@@ -135,5 +134,3 @@ char	*enum_word(t_tokentype tokentype)
 	else
 		return ("");
 }
-
-
